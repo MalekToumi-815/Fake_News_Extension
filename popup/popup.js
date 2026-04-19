@@ -25,17 +25,9 @@ scanBtn.addEventListener('click', async () => {
 
         console.log('Screenshot captured:', blob);
         console.log('Blob size:', blob.size, 'bytes');
-        console.log("language:", selectedLanguage);
+        console.log('language:', selectedLanguage);
 
-        // Convert Blob to Base64
-        const reader = new FileReader();
-        reader.onload = () => {
-            const base64Image = reader.result.split(',')[1];
-            console.log('Base64 length:', base64Image.length);
-            
-            // TODO: Send to API with analyzeImage(base64Image, selectedLanguage)
-        };
-        reader.readAsDataURL(blob);
+        // TODO: Send to API with analyzeImage(blob, selectedLanguage)
 
         // Reset button
         scanBtn.disabled = false;

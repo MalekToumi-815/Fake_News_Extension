@@ -1,4 +1,4 @@
-async function analyzeImage(imageBase64, language) {
+async function analyzeImage(imageBlob, language) {
     try {
         const n8nLink = process.env.N8N_LINK;
 
@@ -6,17 +6,13 @@ async function analyzeImage(imageBase64, language) {
             throw new Error('N8N_LINK environment variable is not defined');
         }
 
-        const payload = {
-            image: imageBase64,
-            language: language
-        };
+        const formData = new FormData();
+        formData.append('image', imageBlob, 'screenshot.jpeg');
+        formData.append('language', language);
 
         const response = await fetch(n8nLink, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload),
+            body: formData,
         });
 
         if (!response.ok) {
