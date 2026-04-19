@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News Detection - Analysis Results</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <main class="main-content">
+            <!-- Risk Score Circle -->
+            <div class="risk-score-section">
+                <div class="circular-progress">
+                    <svg class="progress-ring" width="200" height="200" viewBox="0 0 200 200">
+                        <circle class="progress-bg" cx="100" cy="100" r="90" />
+                        <circle class="progress-fill" cx="100" cy="100" r="90" id="progressCircle" />
+                    </svg>
+                    <div class="score-text">
+                        <span class="percentage">85%</span>
+                        <span class="status">SAFE</span>
+                    </div>
+                </div>
+
+                <!-- Risk Level Badges -->
+                <div class="badges-container">
+                    <span class="badge low-risk">
+                        <span class="checkmark">✓</span>
+                        Risk Level: Low Risk
+                    </span>
+                    <span class="badge high-confidence">
+                        <span class="trend">📈</span>
+                        High Confidence
+                    </span>
+                    <span class="badge news-article">
+                        <span class="icon">📰</span>
+                        News Article
+                    </span>
+                </div>
+            </div>
+
+            <!-- Analysis Summary -->
+            <section class="analysis-section">
+                <h2 class="section-title">Analysis Summary</h2>
+                <p class="summary-text">
+                    This screenshot appears to be authentic. The text formatting, metadata, and visual elements 
+                    are consistent with legitimate sources. Minor timestamp inconsistencies were detected but do 
+                    not indicate manipulation.
+                </p>
+            </section>
+
+            <!-- Keywords -->
+            <section class="keywords-section">
+                <h3 class="section-title">
+                    <span class="icon">🏷️</span> Keywords
+                </h3>
+                <div class="keywords-list">
+                    <span class="keyword">breaking news</span>
+                    <span class="keyword">verified</span>
+                    <span class="keyword">Reuters</span>
+                    <span class="keyword">official statement</span>
+                </div>
+            </section>
+
+            <!-- Manipulation Score -->
+            <section class="manipulation-section">
+                <div class="manipulation-header">
+                    <h3 class="section-title">
+                        <span class="icon">⚡</span> Manipulation Score
+                    </h3>
+                    <span class="manipulation-percentage">15%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 15%;"></div>
+                </div>
+                <p class="manipulation-status">Low manipulation detected</p>
+
+                <div class="preview-controls">
+                    <button class="preview-btn">⏱️ Previewing version 2</button>
+                    <button class="preview-btn">Stop previewing</button>
+                    <button class="preview-btn restore">Restore this version</button>
+                </div>
+            </section>
+
+            <!-- Verification Sources -->
+            <section class="sources-section">
+                <h3 class="section-title">
+                    <span class="icon">📋</span> Verification Sources
+                </h3>
+                <div class="sources-list">
+                    <a href="#" class="source-link" target="_blank">
+                        <span class="link-icon">🔗</span>
+                        https://www.reuters.com/fact-check/authentic-source-verification
+                    </a>
+                    <a href="#" class="source-link" target="_blank">
+                        <span class="link-icon">🔗</span>
+                        https://www.snopes.com/fact-check/screenshot-analysis
+                    </a>
+                    <a href="#" class="source-link" target="_blank">
+                        <span class="link-icon">🔗</span>
+                        https://archive.org/web/screenshot-validation/12345
+                    </a>
+                </div>
+            </section>
+
+            <!-- Detailed Explanation -->
+            <section class="explanation-section">
+                <button class="expandable-btn" id="explanationBtn">
+                    <span class="icon">💡</span>
+                    <span>Detailed Explanation</span>
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="expandable-content" id="explanationContent" style="display: none;">
+                    <div class="explanation-text">
+                        <h4>Visual Authentication Checks:</h4>
+                        <p>
+                            The visual elements match known legitimate news sources. The UI components, color schemes, 
+                            and layout are consistent with Reuters' branding guidelines. All text appears to be rendered 
+                            at proper resolutions without distortion or compression artifacts that would indicate manipulation.
+                        </p>
+                        
+                        <h4>Metadata Analysis:</h4>
+                        <p>
+                            The embedded metadata including timestamps, author information, and source attribution 
+                            align with verifiable records from the publication date. No EXIF data manipulation was detected.
+                        </p>
+
+                        <h4>Cross-reference Verification:</h4>
+                        <p>
+                            The content has been cross-referenced with multiple archived versions and independent 
+                            verification sources. All findings corroborate the authenticity of the original publication.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recommended Actions -->
+            <section class="actions-section">
+                <h3 class="section-title">
+                    <span class="icon">🛡️</span> Recommended Actions
+                </h3>
+                <ul class="actions-list">
+                    <li>
+                        <span class="checkmark">✓</span>
+                        Verify with trusted sources before sharing
+                    </li>
+                    <li>
+                        <span class="checkmark">✓</span>
+                        Do not share without independent confirmation
+                    </li>
+                    <li>
+                        <span class="checkmark">✓</span>
+                        Cross-reference with reliable fact-checking databases
+                    </li>
+                    <li class="warning">
+                        <span class="warning-icon">⚠️</span>
+                        Be cautious of emotional or sensationalist framing
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Action Buttons -->
+            <div class="button-group">
+                <button class="btn btn-secondary">🔍 Search on Google</button>
+                <button class="btn btn-primary">📊 Compare Sources</button>
+                <button class="btn btn-tertiary">📤 Share Analysis</button>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>Powered by Fake News AI Detection Engine</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
