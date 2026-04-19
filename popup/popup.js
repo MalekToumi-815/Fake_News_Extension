@@ -1,4 +1,4 @@
-import analyzeImage from '../scripts/api-client.js';
+
 
 // Get the scan button element
 const scanBtn = document.getElementById('scan-btn');
@@ -11,7 +11,7 @@ scanBtn.addEventListener('click', async () => {
         scanBtn.textContent = 'Scanning...';
 
         // Capture visible tab screenshot
-        const screenshotDataUrl = await await chrome.tabs.captureVisibleTab(null, { 
+        const screenshotDataUrl = await chrome.tabs.captureVisibleTab(null, { 
                 format: 'jpeg', 
                 quality: 30  // Dropping to 30% significantly reduces string length
             });
