@@ -26,8 +26,13 @@ scanBtn.addEventListener('click', async () => {
         console.log('Screenshot captured:', blob);
         console.log('Blob size:', blob.size, 'bytes');
         console.log('language:', selectedLanguage);
-
-        // TODO: Send to API with analyzeImage(blob, selectedLanguage)
+        
+        // Open results page in new tab
+        const resultsUrl = chrome.runtime.getURL('results/index.html');
+        chrome.tabs.create({ url: resultsUrl });
+        
+        // Close the popup
+        window.close();
 
         // Reset button
         scanBtn.disabled = false;
