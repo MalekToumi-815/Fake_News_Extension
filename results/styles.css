@@ -147,11 +147,10 @@ body {
 
 /* Sections */
 .analysis-section,
-.keywords-section,
 .manipulation-section,
 .sources-section,
-.explanation-section,
-.actions-section {
+.verdict-section,
+.report-section {
     background: rgba(26, 31, 58, 0.6);
     border: 1px solid var(--border-color);
     border-radius: 12px;
@@ -160,10 +159,10 @@ body {
 }
 
 .analysis-section:hover,
-.keywords-section:hover,
 .manipulation-section:hover,
 .sources-section:hover,
-.actions-section:hover {
+.verdict-section:hover,
+.report-section:hover {
     border-color: rgba(74, 124, 255, 0.3);
     background: rgba(26, 31, 58, 0.8);
 }
@@ -188,27 +187,72 @@ body {
     font-size: 15px;
 }
 
-/* Keywords Section */
-.keywords-list {
+/* Verdict Section */
+.verdict-content {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.keyword {
-    background: rgba(0, 217, 255, 0.15);
-    border: 1px solid rgba(0, 217, 255, 0.4);
+.verdict-text {
+    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.verdict-text strong {
+    color: var(--accent-green);
+    font-weight: 600;
+}
+
+/* Report Section */
+.report-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.report-item {
+    padding: 15px;
+    background: rgba(15, 21, 37, 0.4);
+    border-left: 3px solid var(--accent-blue);
+    border-radius: 6px;
+}
+
+.report-item h4 {
     color: var(--accent-cyan);
-    padding: 6px 14px;
-    border-radius: 20px;
     font-size: 13px;
-    font-weight: 500;
-    transition: all 0.3s ease;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.keyword:hover {
-    background: rgba(0, 217, 255, 0.25);
-    border-color: var(--accent-cyan);
+.report-item p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.report-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.report-list li {
+    color: var(--text-secondary);
+    font-size: 14px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.report-list li:before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--accent-green);
 }
 
 /* Manipulation Section */
@@ -316,102 +360,6 @@ body {
     flex-shrink: 0;
 }
 
-/* Expandable Section */
-.expandable-btn {
-    width: 100%;
-    background: transparent;
-    border: none;
-    color: var(--text-primary);
-    padding: 0;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 16px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.expandable-btn:hover {
-    color: var(--accent-blue);
-}
-
-.expandable-btn .arrow {
-    margin-left: auto;
-    transition: transform 0.3s ease;
-    font-size: 12px;
-}
-
-.expandable-btn.open .arrow {
-    transform: rotate(180deg);
-}
-
-.expandable-content {
-    margin-top: 15px;
-    overflow: hidden;
-    animation: slideDown 0.3s ease;
-}
-
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        max-height: 0;
-    }
-    to {
-        opacity: 1;
-        max-height: 500px;
-    }
-}
-
-.explanation-text {
-    color: var(--text-secondary);
-    font-size: 14px;
-    line-height: 1.8;
-}
-
-.explanation-text h4 {
-    color: var(--accent-cyan);
-    margin-top: 12px;
-    margin-bottom: 6px;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.explanation-text p {
-    margin-bottom: 10px;
-}
-
-/* Actions Section */
-.actions-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.actions-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    color: var(--text-secondary);
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-.actions-list .checkmark {
-    color: var(--success-color);
-    font-weight: bold;
-    flex-shrink: 0;
-}
-
-.actions-list li.warning {
-    color: var(--warning-color);
-}
-
-.actions-list li.warning .warning-icon {
-    flex-shrink: 0;
-}
-
 /* Button Group */
 .button-group {
     display: flex;
@@ -503,11 +451,10 @@ svg defs {
     }
 
     .analysis-section,
-    .keywords-section,
     .manipulation-section,
     .sources-section,
-    .explanation-section,
-    .actions-section {
+    .verdict-section,
+    .report-section {
         padding: 15px;
     }
 

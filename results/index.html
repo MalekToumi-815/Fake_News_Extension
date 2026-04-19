@@ -49,18 +49,7 @@
                 </p>
             </section>
 
-            <!-- Keywords -->
-            <section class="keywords-section">
-                <h3 class="section-title">
-                    <span class="icon">🏷️</span> Keywords
-                </h3>
-                <div class="keywords-list">
-                    <span class="keyword">breaking news</span>
-                    <span class="keyword">verified</span>
-                    <span class="keyword">Reuters</span>
-                    <span class="keyword">official statement</span>
-                </div>
-            </section>
+
 
             <!-- Manipulation Score -->
             <section class="manipulation-section">
@@ -75,11 +64,6 @@
                 </div>
                 <p class="manipulation-status">Low manipulation detected</p>
 
-                <div class="preview-controls">
-                    <button class="preview-btn">⏱️ Previewing version 2</button>
-                    <button class="preview-btn">Stop previewing</button>
-                    <button class="preview-btn restore">Restore this version</button>
-                </div>
             </section>
 
             <!-- Verification Sources -->
@@ -103,60 +87,44 @@
                 </div>
             </section>
 
-            <!-- Detailed Explanation -->
-            <section class="explanation-section">
-                <button class="expandable-btn" id="explanationBtn">
-                    <span class="icon">💡</span>
-                    <span>Detailed Explanation</span>
-                    <span class="arrow">▼</span>
-                </button>
-                <div class="expandable-content" id="explanationContent" style="display: none;">
-                    <div class="explanation-text">
-                        <h4>Visual Authentication Checks:</h4>
-                        <p>
-                            The visual elements match known legitimate news sources. The UI components, color schemes, 
-                            and layout are consistent with Reuters' branding guidelines. All text appears to be rendered 
-                            at proper resolutions without distortion or compression artifacts that would indicate manipulation.
-                        </p>
-                        
-                        <h4>Metadata Analysis:</h4>
-                        <p>
-                            The embedded metadata including timestamps, author information, and source attribution 
-                            align with verifiable records from the publication date. No EXIF data manipulation was detected.
-                        </p>
-
-                        <h4>Cross-reference Verification:</h4>
-                        <p>
-                            The content has been cross-referenced with multiple archived versions and independent 
-                            verification sources. All findings corroborate the authenticity of the original publication.
-                        </p>
-                    </div>
+            <!-- Verdict -->
+            <section class="verdict-section">
+                <h3 class="section-title">
+                    <span class="icon">⚖️</span> Verdict
+                </h3>
+                <div class="verdict-content">
+                    <p class="verdict-text">
+                        Based on comprehensive analysis of the provided screenshot, this content is classified as <strong>AUTHENTIC</strong>. 
+                        The visual elements, text formatting, metadata, and structure are consistent with legitimate news sources. 
+                        No significant signs of manipulation or fabrication were detected.
+                    </p>
                 </div>
             </section>
 
-            <!-- Recommended Actions -->
-            <section class="actions-section">
+            <!-- Report -->
+            <section class="report-section">
                 <h3 class="section-title">
-                    <span class="icon">🛡️</span> Recommended Actions
+                    <span class="icon">📑</span> Report
                 </h3>
-                <ul class="actions-list">
-                    <li>
-                        <span class="checkmark">✓</span>
-                        Verify with trusted sources before sharing
-                    </li>
-                    <li>
-                        <span class="checkmark">✓</span>
-                        Do not share without independent confirmation
-                    </li>
-                    <li>
-                        <span class="checkmark">✓</span>
-                        Cross-reference with reliable fact-checking databases
-                    </li>
-                    <li class="warning">
-                        <span class="warning-icon">⚠️</span>
-                        Be cautious of emotional or sensationalist framing
-                    </li>
-                </ul>
+                <div class="report-content">
+                    <div class="report-item">
+                        <h4>Analysis Timestamp</h4>
+                        <p id="analysisTime">January 15, 2025 - 2:30 PM UTC</p>
+                    </div>
+                    <div class="report-item">
+                        <h4>Detection Methods Used</h4>
+                        <ul class="report-list">
+                            <li>Visual Element Authentication</li>
+                            <li>Metadata Verification</li>
+                            <li>Source Cross-Reference</li>
+                            <li>Compression Artifact Analysis</li>
+                        </ul>
+                    </div>
+                    <div class="report-item">
+                        <h4>Overall Assessment</h4>
+                        <p>Multiple verification techniques confirm the authenticity of this content with high confidence.</p>
+                    </div>
+                </div>
             </section>
 
             <!-- Action Buttons -->

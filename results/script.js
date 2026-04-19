@@ -6,22 +6,6 @@ function initializeProgressCircle(percentage) {
     circle.style.strokeDashoffset = strokeDashoffset;
 }
 
-// Expandable sections functionality
-const explanationBtn = document.getElementById('explanationBtn');
-const explanationContent = document.getElementById('explanationContent');
-
-explanationBtn.addEventListener('click', () => {
-    const isOpen = explanationContent.style.display !== 'none';
-    
-    if (isOpen) {
-        explanationContent.style.display = 'none';
-        explanationBtn.classList.remove('open');
-    } else {
-        explanationContent.style.display = 'block';
-        explanationBtn.classList.add('open');
-    }
-});
-
 // Action buttons functionality
 document.addEventListener('DOMContentLoaded', () => {
     const googleBtn = document.querySelector('.btn-secondary');
