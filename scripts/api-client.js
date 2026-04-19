@@ -1,9 +1,9 @@
 async function analyzeImage(imageBlob, language) {
     try {
-        const n8nLink = process.env.N8N_LINK;
+        const n8nLink = 'https://raedaroua.app.n8n.cloud/webhook-test/fake-news-check';
 
         if (!n8nLink) {
-            throw new Error('N8N_LINK environment variable is not defined');
+            throw new Error('N8N_LINK is not defined');
         }
 
         const formData = new FormData();

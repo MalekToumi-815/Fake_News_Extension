@@ -59,12 +59,22 @@ scanBtn.addEventListener('click', async () => {
             console.log('Blob size:', croppedBlob.size, 'bytes');
             console.log('language:', selectedLanguage);
             
-            // TODO: Send to API with analyzeImage(croppedBlob, selectedLanguage)
+            // Send image and language to background.js
+            chrome.runtime.sendMessage({
+                type: 'ANALYZE_IMAGE',
+                image: croppedBlob,
+                language: selectedLanguage
+            }, (response) => {
+                console.log('Response from background:', response);
+                // Reset button
+                scanBtn.disabled = false;
+                scanBtn.innerHTML = '<span class="button-icon">🔍</span>Scan This Page';
+            });
+        } else {
+            // User cancelled selection
+            scanBtn.disabled = false;
+            scanBtn.innerHTML = '<span class="button-icon">🔍</span>Scan This Page';
         }
-
-        // Reset button
-        scanBtn.disabled = false;
-        scanBtn.innerHTML = '<span class="button-icon">🔍</span>Scan This Page';
 
     } catch (error) {
         console.error('Error during scan:', error);
