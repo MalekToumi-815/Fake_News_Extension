@@ -1,11 +1,15 @@
 // Listen for messages from the popup
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    console.log('[CONTENT] Message received from popup:', request.action);
     if (request.action === 'startSelection') {
         startRegionSelection(sendResponse);
+        return true; // Keep the message channel open for async response
     }
 });
 
 function startRegionSelection(callback) {
+    console.log('[CONTENT] Starting region selection');
+    
     // Create overlay
     const overlay = document.createElement('div');
     overlay.id = 'screenshot-overlay';
@@ -38,6 +42,7 @@ function startRegionSelection(callback) {
     let startX, startY, endX, endY;
 
     overlay.addEventListener('mousedown', (e) => {
+        console.log('[CONTENT] Mouse down at:', e.clientX, e.clientY);
         isSelecting = true;
         startX = e.clientX;
         startY = e.clientY;
@@ -64,6 +69,7 @@ function startRegionSelection(callback) {
     overlay.addEventListener('mouseup', () => {
         if (!isSelecting) return;
         isSelecting = false;
+        console.log('[CONTENT] Mouse up, calculating region');
 
         // Clean up
         overlay.remove();
@@ -81,16 +87,20 @@ function startRegionSelection(callback) {
             width: maxX - minX,
             height: maxY - minY
         };
-
+        
+        console.log('[CONTENT] Region calculated:', region);
+        console.log('[CONTENT] Sending success response with region');
         callback({ success: true, region });
     });
 
     // Allow escape to cancel
     const cancelHandler = (e) => {
         if (e.key === 'Escape') {
+            console.log('[CONTENT] Escape pressed, cancelling selection');
             overlay.remove();
             selectionBox.remove();
             document.removeEventListener('keydown', cancelHandler);
+            console.log('[CONTENT] Sending cancel response');
             callback({ success: false });
         }
     };

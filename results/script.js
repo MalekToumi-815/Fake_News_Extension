@@ -12,42 +12,62 @@ async function populateResults() {
         // Get stored result from chrome.storage
         chrome.storage.local.get('lastResult', (result) => {
             if (result.lastResult) {
-                const data = result.lastResult;
+                // Support both shapes:
+                // - { authenticityPercentage, verificationUrls, verdict, report }
+                // - { output: { authenticityPercentage, verificationUrls, verdict, report } }
+                const raw = result.lastResult;
+                const data = (raw && typeof raw === 'object' && raw.output && typeof raw.output === 'object')
+                    ? raw.output
+                    : raw;
+
+                const authenticity = (data && data.authenticityPercentage !== undefined)
+                    ? Number(data.authenticityPercentage)
+                    : undefined;
+                const clampedAuthenticity = (authenticity === undefined || Number.isNaN(authenticity))
+                    ? undefined
+                    : Math.max(0, Math.min(100, authenticity));
                 
                 // Update authenticity percentage
-                if (data.authenticityPercentage !== undefined) {
-                    document.querySelector('.percentage').textContent = data.authenticityPercentage + '%';
+                if (clampedAuthenticity !== undefined) {
+                    const percentageEl = document.querySelector('.percentage');
+                    if (percentageEl) percentageEl.textContent = clampedAuthenticity + '%';
                     
                     // Update status based on percentage
                     const statusEl = document.querySelector('.status');
-                    if (data.authenticityPercentage >= 70) {
-                        statusEl.textContent = 'SAFE';
-                        statusEl.style.color = '#00ff88';
-                    } else if (data.authenticityPercentage >= 40) {
-                        statusEl.textContent = 'SUSPICIOUS';
-                        statusEl.style.color = '#ffaa00';
-                    } else {
-                        statusEl.textContent = 'FAKE';
-                        statusEl.style.color = '#ff4466';
+                    if (statusEl) {
+                        if (clampedAuthenticity >= 70) {
+                            statusEl.textContent = 'SAFE';
+                            statusEl.style.color = '#00ff88';
+                        } else if (clampedAuthenticity >= 40) {
+                            statusEl.textContent = 'SUSPICIOUS';
+                            statusEl.style.color = '#ffaa00';
+                        } else {
+                            statusEl.textContent = 'FAKE';
+                            statusEl.style.color = '#ff4466';
+                        }
                     }
                     
                     // Initialize progress circle
-                    initializeProgressCircle(data.authenticityPercentage);
+                    initializeProgressCircle(clampedAuthenticity);
                 }
                 
                 // Update manipulation score (inverse of authenticity)
-                if (data.authenticityPercentage !== undefined) {
-                    const manipulationScore = 100 - data.authenticityPercentage;
-                    document.querySelector('.manipulation-percentage').textContent = manipulationScore + '%';
-                    document.querySelector('.progress-bar .progress-fill').style.width = manipulationScore + '%';
+                if (clampedAuthenticity !== undefined) {
+                    const manipulationScore = 100 - clampedAuthenticity;
+                    const manipulationEl = document.querySelector('.manipulation-percentage');
+                    if (manipulationEl) manipulationEl.textContent = manipulationScore + '%';
+                    const manipulationFill = document.querySelector('.progress-bar .progress-fill');
+                    if (manipulationFill) manipulationFill.style.width = manipulationScore + '%';
                 }
                 
                 // Update verification sources
-                if (data.verificationUrls && Array.isArray(data.verificationUrls)) {
+                const urls = (data && Array.isArray(data.verificationUrls)) ? data.verificationUrls : null;
+                if (urls) {
                     const sourcesList = document.querySelector('.sources-list');
+                    if (!sourcesList) return;
                     sourcesList.innerHTML = '';
                     
-                    data.verificationUrls.forEach(url => {
+                    urls.forEach(url => {
                         const link = document.createElement('a');
                         link.href = url;
                         link.className = 'source-link';
@@ -60,7 +80,9 @@ async function populateResults() {
                 // Update verdict
                 if (data.verdict) {
                     const verdictText = document.querySelector('.verdict-text');
-                    verdictText.innerHTML = `Based on comprehensive analysis, this content is classified as <strong>${data.verdict}</strong>.`;
+                    if (verdictText) {
+                        verdictText.innerHTML = `Based on comprehensive analysis, this content is classified as <strong>${data.verdict}</strong>.`;
+                    }
                 }
                 
                 // Update report
@@ -77,15 +99,17 @@ async function populateResults() {
                 // Update analysis timestamp
                 const analysisTime = document.getElementById('analysisTime');
                 const now = new Date();
-                analysisTime.textContent = now.toLocaleString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                    timeZoneName: 'short'
-                });
+                if (analysisTime) {
+                    analysisTime.textContent = now.toLocaleString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
+                        timeZoneName: 'short'
+                    });
+                }
             }
         });
     } catch (error) {

@@ -2,15 +2,28 @@
     "manifest_version": 3,
     "name": "Fake News AI",
     "version": "1.0",
-    "permissions": ["activeTab", "scripting", "tabCapture"],
+    "icons": {
+        "16": "assets/image.png",
+        "32": "assets/image.png",
+        "48": "assets/image.png",
+        "128": "assets/image.png"
+    },
+    "permissions": ["activeTab", "scripting", "tabCapture", "storage"],
     "host_permissions": ["<all_urls>"],
     "action": {
+        "default_icon": {
+            "16": "assets/image.png",
+            "32": "assets/image.png",
+            "48": "assets/image.png",
+            "128": "assets/image.png"
+        },
         "default_popup": "popup/popup.html",
         "default_popup_width": 400,
         "default_popup_height": 300
     },
     "background": {
-        "service_worker": "scripts/background.js"
+        "service_worker": "scripts/background.js",
+        "type": "module"
     },
     "content_scripts": [
         {
