@@ -1,7 +1,7 @@
 
-
-// Get the scan button element
+// Get the scan button and language select elements
 const scanBtn = document.getElementById('scan-btn');
+const languageSelect = document.getElementById('language-select');
 
 // Add click event listener to the scan button
 scanBtn.addEventListener('click', async () => {
@@ -10,31 +10,36 @@ scanBtn.addEventListener('click', async () => {
         scanBtn.disabled = true;
         scanBtn.textContent = 'Scanning...';
 
+        // Get selected language
+        const selectedLanguage = languageSelect.value;
+
         // Capture visible tab screenshot
         const screenshotDataUrl = await chrome.tabs.captureVisibleTab(null, { 
                 format: 'jpeg', 
-                quality: 30  // Dropping to 30% significantly reduces string length
+                quality: 30
             });
 
         // Convert data URL to Blob
         const response = await fetch(screenshotDataUrl);
         const blob = await response.blob();
 
-        // Call the analyzeImage function with the captured image
-        //const result = await analyzeImage(blob);
+        console.log('Screenshot captured:', blob);
+        console.log('Blob size:', blob.size, 'bytes');
+        console.log("language:", selectedLanguage);
+
+        // Convert Blob to Base64
+        const reader = new FileReader();
+        reader.onload = () => {
+            const base64Image = reader.result.split(',')[1];
+            console.log('Base64 length:', base64Image.length);
+            
+            // TODO: Send to API with analyzeImage(base64Image, selectedLanguage)
+        };
+        reader.readAsDataURL(blob);
 
         // Reset button
         scanBtn.disabled = false;
         scanBtn.innerHTML = '<span class="button-icon">🔍</span>Scan This Page';
-
-        console.log('Screenshot captured:', blob);
-        console.log('Blob size:', blob.size, 'bytes');
-
-        // Send the result to the background script
-        /*chrome.runtime.sendMessage({ 
-            type: 'ANALYSIS_RESULT', 
-            data: result 
-        });*/
 
     } catch (error) {
         console.error('Error during scan:', error);
