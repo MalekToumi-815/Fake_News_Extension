@@ -27,8 +27,8 @@ scanBtn.addEventListener('click', async () => {
         scanBtn.disabled = false;
         scanBtn.innerHTML = '<span class="button-icon">🔍</span>Scan This Page';
 
-        // Handle the result (send to results page or display)
-        console.log('blob:', blob);
+        console.log('Screenshot captured:', blob);
+        console.log('Blob size:', blob.size, 'bytes');
 
         // Send the result to the background script
         /*chrome.runtime.sendMessage({ 
