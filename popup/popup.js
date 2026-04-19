@@ -21,20 +21,20 @@ scanBtn.addEventListener('click', async () => {
         const blob = await response.blob();
 
         // Call the analyzeImage function with the captured image
-        const result = await analyzeImage(blob);
+        //const result = await analyzeImage(blob);
 
         // Reset button
         scanBtn.disabled = false;
         scanBtn.innerHTML = '<span class="button-icon">🔍</span>Scan This Page';
 
         // Handle the result (send to results page or display)
-        console.log('Analysis result:', result);
+        console.log('blob:', blob);
 
         // Send the result to the background script
-        chrome.runtime.sendMessage({ 
+        /*chrome.runtime.sendMessage({ 
             type: 'ANALYSIS_RESULT', 
             data: result 
-        });
+        });*/
 
     } catch (error) {
         console.error('Error during scan:', error);
