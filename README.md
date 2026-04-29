@@ -23,8 +23,8 @@ This project is a complete browser extension backed by a powerful automation wor
 * **Fetch API**: Forms the secure data pipeline connecting the extension's user interface to the backend webhook, transmitting `multipart/form-data`.
 
 ### Core Automation (Backend)
-* ** <img width="1675" height="928" alt="image" src="https://github.com/user-attachments/assets/84c39a7a-0a2b-4e3f-af97-c1aa078f56a5" />
-  **: The core workflow automation platform. It visually orchestrates the entire pipeline from receiving the webhook to executing multi-agent AI logic and returning the final response.
+ <img width="1675" height="928" alt="image" src="https://github.com/user-attachments/assets/84c39a7a-0a2b-4e3f-af97-c1aa078f56a5" />
+  : The core workflow automation platform. It visually orchestrates the entire pipeline from receiving the webhook to executing multi-agent AI logic and returning the final response.
 
 ### AI & Large Language Models
 * **Google Gemini API**: Powers the core AI capabilities of the project (`gemini-3-flash-preview`).
