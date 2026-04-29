@@ -1,156 +1,36 @@
-# Fake News AI Detection Extension
+# Fake News Verification Extension
 
-A powerful Chrome extension that analyzes web content to detect fake news, manipulated media, and suspicious content using advanced AI analysis.
+This project is a complete browser extension backed by a powerful automation workflow built in **n8n**. It enables users to detect and fact-check suspect content (like social media posts, news snippets, or misleading images) directly from their browser, analyze the visual and textual data, and instantly display a verified fact-checking report.
 
-## Features
+## How It Works
 
-- 🔍 **Screenshot Analysis** - Captures and analyzes webpage content
-- 📊 **Risk Assessment** - Provides authenticity scores and manipulation detection
-- 🌍 **Multi-language Support** - English, French, Arabic, and Tunisian
-- 🛡️ **Detailed Reports** - Comprehensive analysis with verification sources
-- ⚡ **Real-time Detection** - Fast analysis with actionable recommendations
+1. **User Interaction (Extension Frontend)**: The user opens the extension popup in their browser, selects their preferred language, and clicks a button to capture a screenshot of the content they are currently viewing.
+2. **Transmission**: The frontend JavaScript securely extracts the image data and sends it, along with the requested translation language, to the n8n backend via a webhook `POST` request.
+3. **Analysis (Backend)**: 
+   - Uses Google Gemini to extract text directly from the screenshot (OCR).
+   - Uses Google Gemini to generate a visual description of the image context.
+4. **Fact-Checking Agent**: 
+   - A LangChain AI Agent analyzes the combined text and image context.
+   - It intelligently queries the **Google Fact Check API** to verify factual claims against previously validated news.
+   - It runs a custom **Source Suggester Tool** to find authoritative sources based on the identified topic.
+5. **Response & Display**: The n8n workflow enforces a strict structured JSON output and streams it back to the extension. The frontend UI captures this and renders a clean dashboard showing: an authenticity percentage, verification URLs, a final verdict (Real/Fake/Mixed/Unverified), and a translated, highly detailed report.
 
-## Installation
+## Technologies Used
 
-### Prerequisites
-- Google Chrome/Chromium browser (version 90+)
-- Node.js (optional, for development)
+### Frontend / Browser Extension
+* **Browser Extension APIs (Manifest V3)**: Manages tab capture, background service workers, and extension permissions to safely screenshot the active page.
+* **HTML / CSS / JavaScript**: Handles the clean modern popup UI, loading states, and dynamic result rendering within the extension window.
+* **Fetch API**: Forms the secure data pipeline connecting the extension's user interface to the backend webhook, transmitting `multipart/form-data`.
 
-### Steps to Install
+### Core Automation (Backend)
+* **[n8n](https://n8n.io/)**: The core workflow automation platform. It visually orchestrates the entire pipeline from receiving the webhook to executing multi-agent AI logic and returning the final response.
 
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/yourusername/Fake_News_Extension.git
-   cd Fake_News_Extension
-   ```
+### AI & Large Language Models
+* **Google Gemini API**: Powers the core AI capabilities of the project (`gemini-3-flash-preview`).
+  * Used for vision tasks: extracting raw text from uploaded screenshots and providing situational descriptions of the images.
+  * Acts as the underlying reasoning engine for the LangChain agent.
+* **LangChain (via n8n integration)**: Drives the AI Agent (`@n8n/n8n-nodes-langchain.agent`). Used for tool-calling, multi-step reasoning, and leveraging a structured output parser to ensure the final report follows a strict JSON schema.
 
-2. **Load Extension in Chrome**
-   - Open Chrome and go to `chrome://extensions/`
-   - Enable **Developer mode** (toggle in top-right corner)
-   - Click **Load unpacked**
-   - Select the `Fake_News_Extension` folder
-   - The extension icon should now appear in your Chrome toolbar
-
-## How to Use the Extension
-
-### Step 1: Open the Extension
-- Click the **Fake News AI** icon in your Chrome toolbar
-- A popup window will appear with language options
-
-### Step 2: Select Language
-- Choose your preferred language from the dropdown:
-  - English
-  - French
-  - Arabic
-  - Tunisian
-
-### Step 3: Scan the Page
-- Click the **"Scan This Page"** button
-- The extension will:
-  - Capture a screenshot of the current webpage
-  - Analyze the content
-  - Open a detailed results page in a new tab
-
-### Step 4: Review Analysis Results
-The results page displays:
-
-- **Safety Score** (85% in demo) - Overall authenticity assessment
-- **Risk Level** - Low, Medium, or High Risk classification
-- **Confidence Level** - Reliability of the analysis
-- **Analysis Summary** - Detailed explanation of findings
-- **Keywords** - Important terms identified in the content
-- **Manipulation Score** - Percentage of detected manipulation
-- **Verification Sources** - Links to fact-checking databases
-- **Recommended Actions** - Safety guidelines and best practices
-
-### Step 5: Take Action
-- **Search on Google** - Verify content with search results
-- **Compare Sources** - Cross-reference with other sources
-- **Share Analysis** - Share findings with others
-
-## Project Structure
-
-```
-Fake_News_Extension/
-├── manifest.json           # Extension configuration
-├── README.md              # This file
-├── popup/
-│   ├── popup.html         # Popup UI
-│   ├── popup.css          # Popup styles
-│   └── popup.js           # Popup logic
-├── scripts/
-│   ├── background.js      # Background service worker
-│   └── api-client.js      # API integration
-└── results/
-    ├── index.html         # Results page UI
-    ├── styles.css         # Results styling
-    └── script.js          # Results interactivity
-```
-
-## Development
-
-### File Descriptions
-
-- **manifest.json** - Defines extension permissions and configuration
-- **popup.html/css/js** - User interface for scanning and language selection
-- **background.js** - Service worker handling extension lifecycle
-- **api-client.js** - Handles API communication for analysis
-- **results/** - Complete results page with analysis visualization
-
-### Future Enhancements
-
-- [ ] API integration for real analysis
-- [ ] Database caching for performance
-- [ ] Browser history scanning
-- [ ] Batch analysis capabilities
-- [ ] User account system for saved reports
-- [ ] Chrome Sync for cross-device settings
-
-## API Integration
-
-Currently using **mock data** for demonstration. To connect real API:
-
-1. Update `api-client.js` with your API endpoint
-2. Modify `popup.js` to send screenshot data to the API
-3. Process results in `results/script.js`
-
-## Troubleshooting
-
-### Extension Not Appearing
-- Verify Chrome extension is loaded at `chrome://extensions/`
-- Check "Developer mode" is enabled
-- Try reloading the extension
-
-### Screenshot Not Capturing
-- Ensure the webpage is fully loaded
-- Try scanning a different page to verify functionality
-- Check browser console for errors (F12)
-
-### Analysis Not Working
-- Verify internet connection
-- Check API endpoint is accessible
-- Review Chrome extension errors in console
-
-## Security & Privacy
-
-- Screenshots are processed locally or sent securely to API
-- No personal data is stored or tracked
-- All analysis is temporary and not logged
-- Results are not shared with third parties
-
-## License
-
-This project is licensed under the MIT License - see LICENSE file for details.
-
-## Support
-
-For issues, questions, or feature requests, please open an issue on the repository or contact the development team.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
----
-
-**Version:** 1.0.0  
-**Last Updated:** April 19, 2026
+### APIs & Tools
+* **Google Fact Check Tools API**: Queried dynamically by the AI agent to search for verified factual claims and trusted news validations across the web.
+* **Custom Code**: Utilized inside the "Source Suggester Tool" node to logically route different topics (e.g., medical, political, science) to specifically known authoritative domains (like Reuters, Mayo Clinic, or Nature).
